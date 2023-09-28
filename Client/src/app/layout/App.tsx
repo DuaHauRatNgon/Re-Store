@@ -1,0 +1,39 @@
+import { useState } from 'react'
+import '../../App.css'
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import Header from './Header';
+import Catalog from '../../features/Catalog';
+
+
+function App() {
+  const [darkMode, setDarkMode] = useState(false);
+  const palleteType = darkMode ? 'dark' : 'light';
+  const theme = createTheme({
+    palette: {
+      mode: palleteType,
+      background: {
+        default: (palleteType === 'light') ? '#eaeaea' : '#121212'
+      }
+    }
+  })
+
+  function handleThemeChange() {
+    setDarkMode(!darkMode);
+  }
+  
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Header darkMode={darkMode} handleThemeChange={handleThemeChange}  />
+      <Container>
+        <Catalog />
+      </Container>
+    </ThemeProvider>
+  );
+}
+
+export default App;
