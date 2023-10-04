@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using API.Data;
+using API.Middleware;
 
 namespace API {
     public class Program {
@@ -24,6 +25,9 @@ namespace API {
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
+            //middleware
+            app.UseMiddleware<ExceptionMiddleware>();
+
             if (app.Environment.IsDevelopment()) {
                 app.UseSwagger();
                 app.UseSwaggerUI();
