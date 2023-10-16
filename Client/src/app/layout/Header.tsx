@@ -2,7 +2,7 @@ import { ShoppingCart } from "@mui/icons-material";
 import { AppBar, Badge, IconButton, List, ListItem, Switch, Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link, NavLink } from "react-router-dom";
-import { useStoreContext } from "../context/StoreContext";
+import { useAppSelector } from "../store/configureStore";
 
 const midLinks = [
     { title: 'catalog', path: '/catalog' },
@@ -32,9 +32,8 @@ interface Props {
     handleThemeChange: () => void;
 }
 
-// export default function Header({ handleThemeChange, darkMode }: Props) {
-export default function Header() {
-    const {basket} = useStoreContext();
+export default function Header({ handleThemeChange, darkMode }: Props) {
+    const {basket} = useAppSelector(state => state.basket);
     const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
 
     return (
@@ -48,7 +47,7 @@ export default function Header() {
                     >
                         RE-STORE
                     </Typography>
-                    {/* <Switch Checked={darkMode} onChange={handleThemeChange} /> */}
+                    <Switch checked={darkMode} onChange={handleThemeChange} />
                 </Box>
 
                 <List sx={{ display: 'flex' }}>
